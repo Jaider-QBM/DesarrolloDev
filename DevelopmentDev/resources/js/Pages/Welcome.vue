@@ -3,6 +3,9 @@
     import { ref } from 'vue';
     import { Dialog, DialogPanel } from '@headlessui/vue';
     import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline';
+    import EventCard from '@/Components/EventCard.vue';
+    import Tag from '@/Components/Tag.vue';
+    import Footer from '../Components/Footer.vue';
 
     defineProps({
         canLogin: Boolean,
@@ -30,7 +33,7 @@
                 <div class="flex lg:flex-1">
                     <a href="#" class="-m-1.5 p-1.5">
                         <span class="sr-only">BolsaTalentum</span>
-                        <img class="h-16 w-auto" src="../../img/logo.png" alt="LogoEmpresa"/>
+                        <img class="h-16 w-auto" src="../../img/logo-negro.png" alt="LogoEmpresa"/>
                     </a>
                 </div>
                 <div class="flex lg:hidden">
@@ -52,7 +55,7 @@
                     <div class="flex items-center justify-between">
                         <a href="#" class="-m-1.5 p-1.5">
                             <span class="sr-only">BolsaTalentum</span>
-                            <img class="h-16 w-auto" src="../../img/logo.png" alt="LogoEmpresa" />
+                            <img class="h-16 w-auto" src="../../img/logo-negro.png" alt="LogoEmpresa" />
                         </a>
                         <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="mobileMenuOpen = false">
                             <span class="sr-only">Cerrar menú principal</span>
@@ -73,26 +76,104 @@
             </Dialog>
         </header>
 
-        <div class="relative isolate px-6 pt-14 lg:px-8">
-            <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-                <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
-            </div>
-            <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-                <div class="text-center">
+        <div class="relative isolate px-6 pt-14 lg:px-8 bg-[url('../img/foto.jpg')] h-[600px]bg-no-repeat bg-cover">
+            <div class=" mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 ">
+                <div class="flex flex-col justify-center items-center text-center mt-20">
                     <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Descubre tu camino profesional con nosotros.</h1>
                     <p class="mt-6 text-lg leading-8 text-gray-600">Conectamos sueños con oportunidades, porque cada empleo es una puerta abierta hacia un futuro lleno de logros. Encuentra tu camino con nosotros.</p>
-                <div class="mt-10 flex items-center justify-center gap-x-6">
-                    <Link :href="route('login')" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Empezar</Link>
-                    <Link v-if="canRegister" :href="route('register')" class="text-sm font-semibold leading-6 text-gray-900">Registrarse <span aria-hidden="true">→</span></Link>
-                </div>  
+                    <div class="mt-10 flex items-center justify-center gap-x-6">
+                        <Link :href="route('login')" class="rounded-md bg-blue-950 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Empezar</Link>
+                    </div>
                 </div>
             </div>
-            <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
-                <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
+        </div>
+
+        <div class="p-8">
+            <div class="">
+                <h1 class="text-3xl font-medium">
+                    Últimos Empleos Publicados de tu interés
+                </h1>
+                <p>Las empresas más importantes están contratando personas para los siguientes cargos:</p>
+            </div>
+            <div class="flex justify-around flex-wrap mt-9">
+
+                <EventCard>
+                    <template #title>
+                        Desarrollador de Software Senior
+                    </template>
+
+                    <template #description>
+                        Estamos buscando un desarrollador de software senior altamente motivado para unirse a nuestro equipo. Debe tener experiencia en el desarrollo de aplicaciones web y móviles utilizando tecnologías modernas como React, Node.js y SQL.
+                    </template>
+
+                    <template #span>
+                        <Tag>Tecnología</Tag>
+                        <Tag>Tiempo Completo</Tag>
+                        <Tag>Junior</Tag>
+                    </template>
+                </EventCard>
+
+                <EventCard>
+                    <template #title>
+                        Diseñador Gráfico Creativo
+                    </template>
+
+                    <template #description>
+                        Estamos en la búsqueda de un diseñador gráfico creativo para unirse a nuestro equipo. Debe tener experiencia en el diseño de materiales visuales tanto para medios digitales como impresos, y habilidades en el uso de herramientas como Adobe Photoshop, Illustrator y/o InDesign.
+                    </template>
+
+                    <template #span>
+                        <Tag>Diseño</Tag>
+                        <Tag>Tiempo Completo</Tag>
+                        <Tag>Senior</Tag>
+                    </template>
+                </EventCard>
+
+                <EventCard>
+                    <template #title>
+                        Chef Ejecutivo
+                    </template>
+
+                    <template #description>
+                        Estamos buscando un chef ejecutivo apasionado y creativo para liderar nuestra cocina. Debe tener experiencia en la gestión de equipos, planificación de menús y garantizar la calidad de los platos servidos. Se valorará la capacidad para innovar y crear experiencias culinarias excepcionales.
+                    </template>
+
+                    <template #span>
+                        <Tag>Gastronomía</Tag>
+                        <Tag>Tiempo Completo</Tag>
+                        <Tag>Senior</Tag>
+                    </template>
+                </EventCard>
+
+                <EventCard>
+                    <template #title>
+                        Ejecutivo de Ventas Senior
+                    </template>
+
+                    <template #description>
+                        Estamos buscando un ejecutivo de ventas senior para liderar nuestro equipo de ventas. El candidato ideal deberá tener experiencia en la gestión de equipos comerciales, desarrollo de estrategias de ventas y habilidades sólidas de negociación. Se valorará la capacidad para establecer relaciones sólidas con clientes clave.
+                    </template>
+
+                    <template #span>
+                        <Tag>Ventas</Tag>
+                        <Tag>Tiempo Completo</Tag>
+                        <Tag>Senior</Tag>
+                    </template>
+                </EventCard>
+            </div>
+        </div>
+
+        <div class="relative isolate px-6 pt-14 lg:px-8 bg-[url('../img/fondo2.jpg')] h-[600px]bg-no-repeat bg-cover">
+            <div class=" mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 ">
+                <div class="flex flex-col justify-center items-center text-center mt-20">
+                    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">¡Encuentra tu próximo trabajo con nosotros! </h1>
+                    <p class="mt-6 text-lg leading-8 text-gray-600">Nuestra bolsa de empleos te conecta con oportunidades laborales emocionantes y bien remuneradas.</p>
+
+                </div>
             </div>
         </div>
     </div>
 
-</template>
+    <Footer/>
 
-<style scoped></style>
+</template>

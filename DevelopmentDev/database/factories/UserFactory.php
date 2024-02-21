@@ -26,9 +26,13 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'lastname' => $this->faker->lastName(), 
+            'phone_number' => $this->faker->phoneNumber(),
+            'document_type' => $this->faker->randomElement(['Cedula Ciudadania', 'Tarjeta Identidad', 'Cedula Extrajeria']), 
+            'document_number' => $this->faker->unique()->numberBetween(1, 10),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),

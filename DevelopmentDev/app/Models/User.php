@@ -18,7 +18,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    use HasRoles; //Esto quiere que decir que este modelo tiene roles, y eso significa que Spatie hace las relaciones con usuario con su respectivos roles y permisos 
+    use HasRoles; 
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +27,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'lastname',
+        'phone_number',
+        'document_type',
+        'document_number',
         'email',
         'password',
     ];

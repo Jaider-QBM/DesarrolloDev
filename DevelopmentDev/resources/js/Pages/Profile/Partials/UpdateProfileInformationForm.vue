@@ -16,6 +16,10 @@ const props = defineProps({
 const form = useForm({
     _method: 'PUT',
     name: props.user.name,
+    lastname: props.user.lastname,
+    phone_number: props.user.phone_number,
+    document_type: props.user.document_type,
+    document_number : props.user.document_number,
     email: props.user.email,
     photo: null,
 });
@@ -96,7 +100,7 @@ const clearPhotoFileInput = () => {
                     @change="updatePhotoPreview"
                 >
 
-                <InputLabel for="photo" value="Photo" />
+                <InputLabel for="photo" value="Foto de Perfil" />
 
                 <!-- Current Profile Photo -->
                 <div v-show="! photoPreview" class="mt-2">
@@ -128,8 +132,10 @@ const clearPhotoFileInput = () => {
             </div>
 
             <!-- Name -->
+
             <div class="col-span-6 sm:col-span-4">
-                <InputLabel for="name" value="Nombre" />
+
+                <InputLabel for="name" value="Nombres" />
                 <TextInput
                     id="name"
                     v-model="form.name"
@@ -138,6 +144,55 @@ const clearPhotoFileInput = () => {
                     autocomplete="name"
                 />
                 <InputError :message="form.errors.name" class="mt-2" />
+            </div>
+
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="lastname" value="Apellidos" />
+                <TextInput
+                    id="lastname"
+                    v-model="form.lastname"
+                    type="text"
+                    class="mt-1 block w-full"
+                    autocomplete="lastname"
+                />
+                <InputError :message="form.errors.lastname" class="mt-2" />
+            </div>
+
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="phone_number" value="Numero Telefono" />
+                <TextInput
+                    id="phone_number"
+                    v-model="form.phone_number"
+                    type="number"
+                    class="mt-1 block w-full"
+                    autocomplete="phone_number"
+                />
+                <InputError :message="form.errors.phone_number" class="mt-2" />
+            </div>
+
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="document_type" value="Tipo de Documento" />
+                <TextInput
+                    id="document_type"
+                    v-model="form.document_type"
+                    type="text"
+                    class="mt-1 block w-full"
+                    autocomplete="document_type"
+                />
+                <InputError :message="form.errors.document_type" class="mt-2" />
+            </div>
+
+            <div class="col-span-6 sm:col-span-4">
+                <InputLabel for="document_number" value="Numero Documento" />
+                <TextInput
+                    id="document_number"
+                    v-model="form.document_number"
+                    type="number"
+                    class="mt-1 block w-full"
+                    autocomplete="document_number"
+                    disabled
+                />
+                <InputError :message="form.errors.document_number" class="mt-2" />
             </div>
 
             <!-- Email -->

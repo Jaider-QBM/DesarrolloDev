@@ -17,19 +17,27 @@ class UserSeeder extends Seeder
     public function run()
     {
         $super_admin = User::create([
-            'name' => 'Jaider Quimbaya',
-            'email' => 'superadmin@bolsaTalentum.net',
-            'password' => Hash::make('superadmin123456') 
+            'name' => 'Jaider Steven',
+            'lastname' => 'Quimbaya Mendez',
+            'phone_number' => 3219801254,
+            'document_type' => 'Cedula Ciudadania',
+            'document_number' => 1016946493,
+            'email' => 'jaiderstivenquimbaya8@gmail.com',
+            'password' => Hash::make('superadmin123456')
         ]);
 
-        $super_admin->assignRole('Super Administrator');
+        $super_admin->assignRole('Super Administrador');
 
         $admin = User::create([
-            'name' => 'michael Laiton',
+            'name' => 'Michael Felipe',
+            'lastname' => 'Laiton Quesada',
+            'phone_number' => 3205801254,
+            'document_type' => 'Cedula Ciudadania',
+            'document_number' => 10168450,
             'email' => 'admin@bolsaTalentum.net',
-            'password' => Hash::make('admin1234567') 
+            'password' => Hash::make('admin12345612')
         ]);
 
-        $admin->assignRole('Administrator');
+        $admin->assignRole('Administrador');
     }
 }

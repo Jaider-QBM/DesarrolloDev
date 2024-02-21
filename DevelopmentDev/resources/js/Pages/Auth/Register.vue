@@ -10,6 +10,10 @@ import TextInput from '@/Components/TextInput.vue';
 
 const form = useForm({
     name: '',
+    lastname: '', 
+    phone_number: '',
+    document_type:'',
+    document_number: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -32,20 +36,78 @@ const submit = () => {
         </template>
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Nombre" />
+                <div>
+                    <InputLabel for="name" value="Nombres" />
+                    <TextInput
+                        id="name"
+                        v-model="form.name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        required
+                        autofocus
+                        autocomplete="name"
+                    />
+                    <InputError class="mt-2" :message="form.errors.name" />
+                </div>
+            
+                <div class="mt-4">
+                    <InputLabel for="lastname" value="Apellidos" />
+                    <TextInput
+                        id="lastname"
+                        v-model="form.lastname"
+                        type="text"
+                        class="mt-1 block w-full"
+                        required
+                        autofocus
+                        autocomplete="lastname"
+                    />
+                    <InputError class="mt-2" :message="form.errors.lastname" />
+                </div>
+            
+                <div class="mt-4">
+                    <InputLabel for="document_type" value="Tipo de Documento" />
+                    <TextInput
+                        id="document_type"
+                        v-model="form.document_type"
+                        type="text"
+                        class="mt-1 block w-full"
+                        required
+                        autofocus
+                        autocomplete="document_type"
+                    />
+                    <InputError class="mt-2" :message="form.errors.document_type" />
+                </div>
+
+                <div>
+                    <InputLabel for="document_number" value="Numero de Documento" />
+                    <TextInput
+                        id="document_number"
+                        v-model="form.document_number"
+                        type="number"
+                        class="mt-1 block w-full"
+                        required
+                        autofocus
+                        autocomplete="document_number"
+                    />
+                    <InputError class="mt-2" :message="form.errors.document_number" />
+                </div>
+
+            <div class="mt-4">
+                <InputLabel for="phone_number" value="Numero de Telefono" />
                 <TextInput
-                    id="name"
-                    v-model="form.name"
-                    type="text"
+                    id="phone_number"
+                    v-model="form.phone_number"
+                    type="number"
                     class="mt-1 block w-full"
                     required
                     autofocus
-                    autocomplete="name"
+                    autocomplete="phone_number"
                 />
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.phone_number" />
             </div>
 
+            
+            
             <div class="mt-4">
                 <InputLabel for="email" value="Correo Electronico" />
                 <TextInput
