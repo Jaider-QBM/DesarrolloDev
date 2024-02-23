@@ -6,12 +6,14 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', [DashboardController::class, 'index']);
 
-Route::get('/login-google', [ClientController::class, 'redirectToGoogle']);
-Route::get('/google-callback', [ClientController::class, 'handleGoogleCallback']);
-Route::get('/form-Registrer', [ClientController::class, 'createGoogle'])->name('clients.google');
-Route::post('/form-Registrer', [ClientController::class, 'store'])->name('clients.store');
+Route::get('/login/google', [ClientController::class, 'redirectToGoogle'])->name('clients.initGoogle');
+Route::get('/login/google/callback', [ClientController::class, 'handleGoogleCallback']);
+Route::get('/form-register', [ClientController::class, 'createGoogle'])->name('clients.google');
+Route::post('/form-register', [ClientController::class, 'store'])->name('clients.store');
+
 
 Route::middleware([
     'auth:sanctum',

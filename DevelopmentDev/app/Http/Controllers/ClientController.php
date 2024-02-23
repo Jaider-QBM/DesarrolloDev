@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 
 class ClientController extends Controller
@@ -147,12 +148,14 @@ class ClientController extends Controller
 
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+         return Socialite::driver('google')->redirect();
     }
 
-    public function handleGoogleCallback()
-    {
+
+     public function handleGoogleCallback()
+     {
         $user = Socialite::driver('google')->user();
+
         if (!User::where('email', $user->getEmail())->exists()) {
             session(['google_user' => $user]);
             return redirect()->route('clients.google');
@@ -160,7 +163,10 @@ class ClientController extends Controller
 
         $existingUser = User::where('email', $user->getEmail())->first();
         Auth::login($existingUser);
-        return redirect()->route('dashboard');
-    }
+
+        return redirect()->intended('dashboard');
+     }
+
+
 
 }

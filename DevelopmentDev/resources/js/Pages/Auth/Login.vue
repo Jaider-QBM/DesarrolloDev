@@ -7,6 +7,12 @@
     import InputLabel from '@/Components/InputLabel.vue';
     import PrimaryButton from '@/Components/PrimaryButton.vue';
     import TextInput from '@/Components/TextInput.vue';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import { library } from '@fortawesome/fontawesome-svg-core';
+    import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
+
+    library.add(faGoogle, faFacebook);
+
 
     defineProps({
         canResetPassword: Boolean,
@@ -26,6 +32,10 @@
         })).post(route('login'), {
             onFinish: () => form.reset('password'),
         });
+    };
+
+    const openGoogleAuthPopup = () => {
+        window.open(route('clients.initGoogle'));
     };
 </script>
 
@@ -86,5 +96,24 @@
                 </PrimaryButton>
             </div>
         </form>
+
+        <div class="flex justify-center items-center mt-4">
+            <div class="w-full h-px bg-slate-400"></div>
+            <div class="text-center text-slate-400 ml-3 mr-3"></div>
+            <div class="w-full h-px bg-slate-400"></div>
+        </div>
+
+        <div class="flex justify-around mt-5">
+            <a :href="route('clients.initGoogle')" @click.prevent="openGoogleAuthPopup" class="border border-slate-400 w-40 py-2 text-center rounded">
+                <font-awesome-icon class="fa-lg text-blue-400" :icon="['fab', 'google']" />
+                <span class="ml-2">Google</span>
+            </a>
+
+            <Link class="border border-slate-400 w-40 py-2 text-center rounded hover:bg-blue-500 hover:border-blue-500 text-blue-500 hover:text-white">
+                <font-awesome-icon class="fa-lg" :icon="['fab', 'facebook']" />
+                <span class="ml-2">Facebook</span>
+            </Link>
+        </div>
+
     </AuthenticationCard>
 </template>
