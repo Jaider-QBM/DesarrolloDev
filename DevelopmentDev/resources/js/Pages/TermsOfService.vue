@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Terms of Service" />
+    <Head title="Términos de servicio" />
 
     <div class="font-sans text-gray-900 antialiased">
         <div class="pt-4 bg-gray-100">
@@ -17,7 +17,8 @@ defineProps({
                     <AuthenticationCardLogo />
                 </div>
 
-                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose" v-html="terms" />
+                <div class="w-full sm:max-w-2xl mt-6 p-6 bg-white shadow-md overflow-hidden sm:rounded-lg prose" style="max-height: 40rem; overflow-y: auto;" v-html="terms" />
+                <button @click="goBack" class="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700">Volver</button>
             </div>
         </div>
     </div>

@@ -38,7 +38,7 @@ class CreateNewUser implements CreatesNewUsers
             'document_number' => $input['document_number'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-        ])->assignRole('Regular User');
-        
+        ])->assignRole('Usuario Regular');
+
     }
 }

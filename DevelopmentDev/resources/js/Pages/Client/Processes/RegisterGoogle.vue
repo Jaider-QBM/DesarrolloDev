@@ -8,7 +8,7 @@
     import PrimaryButton from '@/Components/PrimaryButton.vue';
     import TextInput from '@/Components/TextInput.vue';
 
-    defineProps({
+    const props = defineProps({
         googleUser:{
             type: Object,
             required: true
@@ -16,9 +16,9 @@
     })
 
     const form = useForm({
-        name: '',
-        lastname: '',
-        email: '',
+        name: props.googleUser.user.given_name,
+        lastname: props.googleUser.user.family_name,
+        email: props.googleUser.email,
         phone_number: '',
         document_type: '',
         document_number: '',
@@ -27,20 +27,11 @@
         terms: false,
     });
 
-
-    const submitForm = () => {
-        post(route('clients.store'), {
-            name: googleUser.user.given_name,
-            lastname: googleUser.user.family_name,
-            email: googleUser.email,
-            phone_number: form.phone_number.value,
-            document_type: form.document_type.value,
-            document_number: form.document_number.value,
-            password: form.password.value,
-            password_confirmation: form.password_confirmation.value,
-            terms: form.terms.value,
+    const submit = () => {
+        form.post(route('register'), {
+            onFinish: () => form.reset('password', 'password_confirmation'),
         });
-    }
+    };
 </script>
 
 <template>
@@ -50,60 +41,63 @@
             <AuthenticationCardLogo />
         </template>
 
-        <form @submit.prevent="submitForm">
-                <div>
-                    <InputLabel for="name" value="Nombres" />
-                    <TextInput
-                        id="name"
-                        v-model="googleUser.user.given_name"
-                        type="text"
-                        class="mt-1 block w-full"
-                        required
-                        disabled
-                    />
-                    <InputError class="mt-2" :message="form.errors.name" />
-                </div>
+        <form @submit.prevent="submit">
+            <div>
+                <InputLabel for="name" value="Nombres" />
+                <TextInput
+                    id="name"
+                    v-model="googleUser.user.given_name"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    disabled
+                />
+                <InputError class="mt-2" :message="form.errors.name" />
+            </div>
 
-                <div class="mt-4">
-                    <InputLabel for="lastname" value="Apellidos" />
-                    <TextInput
-                        id="lastname"
-                        v-model="googleUser.user.family_name"
-                        type="text"
-                        class="mt-1 block w-full"
-                        required
-                        disabled
-                    />
-                    <InputError class="mt-2" :message="form.errors.lastname" />
-                </div>
+            <div class="mt-4">
+                <InputLabel for="lastname" value="Apellidos" />
+                <TextInput
+                    id="lastname"
+                    v-model="googleUser.user.family_name"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    disabled
+                />
+                <InputError class="mt-2" :message="form.errors.lastname" />
+            </div>
 
-                <div class="mt-4">
-                    <InputLabel for="document_type" value="Tipo de Documento" />
-                    <TextInput
-                        id="document_type"
-                        v-model="form.document_type"
-                        type="text"
-                        class="mt-1 block w-full"
-                        required
-                        autofocus
-                        autocomplete="document_type"
-                    />
-                    <InputError class="mt-2" :message="form.errors.document_type" />
-                </div>
+            <div class="mt-4">
+                <label for="document_type" class="block text-sm font-medium text-gray-700">Tipo de Documento</label>
+                <select
+                    id="document_type"
+                    v-model="form.document_type"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required
+                    autofocus
+                >
+                    <option value="" disabled selected>Selecciona</option>
+                    <option value="C.C">Cedula Ciudadania</option>
+                    <option value="T.I">Tarjeta Identidad</option>
+                    <option value="C.E">Cedula Extranjeria</option>
+                </select>
+                <InputError class="mt-2" :message="form.errors.document_type" />
+            </div>
 
-                <div>
-                    <InputLabel for="document_number" value="Numero de Documento" />
-                    <TextInput
-                        id="document_number"
-                        v-model="form.document_number"
-                        type="number"
-                        class="mt-1 block w-full"
-                        required
-                        autofocus
-                        autocomplete="document_number"
-                    />
-                    <InputError class="mt-2" :message="form.errors.document_number" />
-                </div>
+            <div class="mt-4">
+                <InputLabel for="document_number" value="Numero de Documento" />
+                <TextInput
+                    id="document_number"
+                    v-model="form.document_number"
+                    type="number"
+                    class="mt-1 block w-full"
+                    required
+                    autofocus
+                    autocomplete="document_number"
+                />
+                <InputError class="mt-2" :message="form.errors.document_number" />
+            </div>
 
             <div class="mt-4">
                 <InputLabel for="phone_number" value="Numero de Telefono" />
@@ -118,8 +112,6 @@
                 />
                 <InputError class="mt-2" :message="form.errors.phone_number" />
             </div>
-
-
 
             <div class="mt-4">
                 <InputLabel for="email" value="Correo Electronico" />

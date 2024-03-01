@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
-use App\Http\Requests\PermissionRequest;
 use Illuminate\Validation\Rule;
 
 class PermissionController extends Controller
@@ -36,7 +35,7 @@ class PermissionController extends Controller
     * @param  \Illuminate\Http\Request  $request
     * @return \Illuminate\Http\Response
     */
-    public function store(PermissionRequest $request)
+    public function store(Request $request)
     {
         Permission::create($request->validated());
         return redirect()->route('permissions.index');

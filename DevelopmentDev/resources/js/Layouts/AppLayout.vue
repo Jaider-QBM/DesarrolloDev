@@ -113,7 +113,7 @@ const logout = () => {
                                 </Link>
                             </li>
                             <li v-if="$page.props.user.permissions.includes('read user')">
-                                <Link :href="route('clients.index')" :active="route().current('client.*')" class="flex items-center p-2 text-slate-100 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-black group" >
+                                <Link :href="route('users.index')" :active="route().current('user.*')" class="flex items-center p-2 text-slate-100 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-black group" >
                                     <font-awesome-icon icon="user" />
                                     <span class="flex-1 ms-3 whitespace-nowrap">Clientes</span>
                                 </Link>
@@ -152,7 +152,7 @@ const logout = () => {
                             </div>
 
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" v-if="$page.props.user.permissions.includes('read user')">
-                                <NavLink :href="route('clients.index')" :active="route().current('client.*')">
+                                <NavLink :href="route('users.index')" :active="route().current('client.*')">
                                     Clientes
                                 </NavLink>
                             </div>

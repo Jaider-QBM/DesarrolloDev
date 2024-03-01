@@ -35,7 +35,7 @@
     };
 
     const openGoogleAuthPopup = () => {
-        window.open(route('clients.initGoogle'));
+        window.open(route('users.initGoogle'));
     };
 </script>
 
@@ -99,12 +99,12 @@
 
         <div class="flex justify-center items-center mt-4">
             <div class="w-full h-px bg-slate-400"></div>
-            <div class="text-center text-slate-400 ml-3 mr-3"></div>
+            <div class="text-center text-slate-400 ml-3 mr-3">o</div>
             <div class="w-full h-px bg-slate-400"></div>
         </div>
 
         <div class="flex justify-around mt-5">
-            <a :href="route('clients.initGoogle')" @click.prevent="openGoogleAuthPopup" class="border border-slate-400 w-40 py-2 text-center rounded">
+            <a :href="route('users.initGoogle')" @click.prevent="openGoogleAuthPopup" class="border border-slate-400 w-40 py-2 text-center rounded">
                 <font-awesome-icon class="fa-lg text-blue-400" :icon="['fab', 'google']" />
                 <span class="ml-2">Google</span>
             </a>
