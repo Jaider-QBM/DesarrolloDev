@@ -1,20 +1,12 @@
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue';
-    import { ref, onMounted } from 'vue';
+    import { Inertia } from '@inertiajs/inertia';
 
-    let csrfToken = ref(null);
-
-    onMounted(() => {
-        const tokenElement = document.querySelector('meta[name="csrf-token"]');
-        console.log(tokenElement + "Token")
-        if (tokenElement) {
-            csrfToken.value = tokenElement.getAttribute('content');
-        } else {
-            console.error('CSRF token no encontrado');
-        }
-    });
-
-
+    const submit = () => {
+        const formData = new FormData();
+        formData.append('import_file', document.querySelector('input[type="file"]').files[0]);
+        Inertia.post('/clients/import', formData);
+    }
 </script>
 
 <template>
@@ -42,11 +34,10 @@
 
                             <div class="md:col-span-1 px-4 sm:px-0">
                                 <div class="mt-5 md:mt-0">
-                                    <form :action="route('clients.import')" method="POST" enctype="multipart/form-data">
+                                    <form @submit.prevent="submit">
                                         <div class="px-4 py-5 bg-white sm:p-6 shadow"  >
                                             <div class="grid grid-cols-6 gap-6">
                                                 <div class="col-span-6 sm:col-span6">
-                                                    <input type="hidden" name="_token" :value="tokenElement">
                                                     <input type="file" name="import_file" class="mt-1 block w-full" required>
                                                 </div>
                                             </div>
@@ -59,12 +50,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <form :action="route('clientsImports.store')" method="POST" enctype="multipart/form-data">
-
-                            <input type="hidden" name="_token" :value="csrfToken">
-                            <input type="file" name="import_file">
-                            <button class="text-white bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded" type="submit">Importar</button>
-                        </form> -->
                     </div>
                 </div>
             </div>

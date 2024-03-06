@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+
 
 class RoleController extends Controller
 {
@@ -14,7 +17,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::with('permissions')->get();
         return inertia('Role/HomeRole', ['roles'=> $roles]);
     }
 
@@ -25,7 +28,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return inertia('Role/Processes/CreateRole');
+        $permissions = Permission::all();
+        return inertia('Role/Processes/CreateRole', ['permissions' => $permissions]);
     }
 
     /**
@@ -38,12 +42,15 @@ class RoleController extends Controller
     {
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:100', 'unique:roles'],
+            'permissions' => ['required', 'array'],
         ]);
 
-        Role::create([
+        $role = Role::create([
             'name' => $validatedData['name'],
             'guard_name' => 'web',
         ]);
+
+        $role->syncPermissions($validatedData['permissions']);
         return redirect()->route('roles.index');
     }
 
@@ -87,8 +94,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return redirect()->route('roles.index');
     }
 }

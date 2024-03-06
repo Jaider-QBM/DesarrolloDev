@@ -48,10 +48,6 @@ class RoleSeeder extends Seeder
             $permission_update_user,
             $permission_delete_user,
             $permission_import_user,
-            $permission_create_permissions,
-            $permission_read_permissions,
-            $permission_update_permissions,
-            $permission_delete_permissions
         ];
 
         $permissions_admin = [

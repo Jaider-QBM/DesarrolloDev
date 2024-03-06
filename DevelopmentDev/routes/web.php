@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -25,8 +24,12 @@ Route::middleware([
     Route::get('/clients/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::post('/clients/create', [UserController::class, 'store'])->name('users.store');
     Route::post('/clients/import', [UserController::class, 'import'])->name('users.import');
-    Route::put('/clients/edit', [UserController::class, 'update'])->name('clients.update');
-    Route::resource('/roles', RoleController::class);
-    Route::resource('/permissions', PermissionController::class);
+    Route::put('/clients/edit   ', [UserController::class, 'update'])->name('clients.update');
+    Route::delete('/clients/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::get('/roles/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::post('/roles/create', [RoleController::class, 'store'])->name('roles.store');
+    Route::delete('/roles/{rol}', [RoleController::class, 'destroy'])->name('roles.destroy');
 });

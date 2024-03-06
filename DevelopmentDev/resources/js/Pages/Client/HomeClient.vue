@@ -1,5 +1,6 @@
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue';
+    import { Inertia } from '@inertiajs/inertia';
     import { ref } from 'vue';
     import { Link } from '@inertiajs/vue3';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -15,9 +16,9 @@
         }
     })
 
-    const deleteClient = id =>{
+    const deleteClient = (clientId) => {
         if(confirm('¿Esta Seguro de eliminar este Cliente?')){
-            Inertia.delete(route('client.destroy', id))
+            Inertia.delete(`/clients/${clientId}`);
         }
     }
     const selectedClient = ref(null);
@@ -83,6 +84,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr v-if="clients.data.length === 0">
+                                    <td colspan="8" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">No hay clientes disponibles</td>
+                                </tr>
                                 <tr v-for="client in clients.data" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ client.id }}
@@ -122,7 +126,6 @@
                         <div v-if="selectedClient" class="fixed inset-0 overflow-y-auto flex items-center justify-center">
                             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 p-8 w-10 md:w-2/4 lg:w-2/4 xl:w-1/3">
-                                <!-- <h2 class="text-lg font-semibold mb-4 bg-blue-900 text-center">Detalles del Cliente</h2> -->
                                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                                         Detalles del Cliente

@@ -74,12 +74,11 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::findOrFail($id);
         return inertia('Client/Processes/EditClient', ['user' => $user]);
     }
 
@@ -90,21 +89,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $clients)
+    public function update(UserRequest $request, User $user)
     {
-        $clients->update($request->validated());
+        $user->update($request->validated());
         return redirect()->route('users.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('users.index');
     }
 
     public function import(Request $request)
@@ -112,17 +112,8 @@ class UserController extends Controller
         $request->validate([
             'import_file' => 'required|mimes:xlsx|max:2048'
         ]);
-
-        try{
-            $file = $request->file('import_file');
-            Excel::import(new UsersImport, $file);
-            return redirect()->route('users.index');
-        }
-
-        catch(\Exception $e){
-            dd('Error', $e);
-        }
-
+        Excel::import(new UsersImport, $request->file('import_file'));
+        return redirect()->route('users.index');
     }
 
     public function redirectToGoogle()

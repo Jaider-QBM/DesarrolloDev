@@ -118,16 +118,10 @@ const logout = () => {
                                     <span class="flex-1 ms-3 whitespace-nowrap">Clientes</span>
                                 </Link>
                             </li>
-                            <li v-if="$page.props.user.permissions.includes('read permissions')">
+                            <li v-if="$page.props.user.permissions.includes('read roles')">
                                 <Link :href="route('roles.index')" :active="route().current('role.*')" class="flex items-center p-2 text-slate-100 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-black group">
                                     <font-awesome-icon icon="users" />
                                     <span class="flex-1 ms-3 whitespace-nowrap">Roles</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link :href="route('permissions.index')" :active="route().current('permission.*')" class="flex items-center p-2 text-slate-100 rounded-lg dark:text-cla hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-black group">
-                                    <font-awesome-icon icon="users"/>
-                                    <span class="flex-1 ms-3 whitespace-nowrap ">Permisos</span>
                                 </Link>
                             </li>
                         </ul>
@@ -152,7 +146,7 @@ const logout = () => {
                             </div>
 
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" v-if="$page.props.user.permissions.includes('read user')">
-                                <NavLink :href="route('users.index')" :active="route().current('client.*')">
+                                <NavLink :href="route('users.index')" :active="route().current('user.*')">
                                     Clientes
                                 </NavLink>
                             </div>
@@ -162,13 +156,6 @@ const logout = () => {
                                     Roles
                                 </NavLink>
                             </div>
-
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" v-if="$page.props.user.permissions.includes('read permissions')">
-                                <NavLink :href="route('permissions.index')" :active="route().current('permission.*')">
-                                    Permisos
-                                </NavLink>
-                            </div>
-
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">

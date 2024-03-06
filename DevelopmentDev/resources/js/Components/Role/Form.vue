@@ -4,17 +4,31 @@
     import InputError from '@/Components/InputError.vue';
     import InputLabel from '@/Components/InputLabel.vue';
     import PrimaryButton from '@/Components/PrimaryButton.vue';
+    import { defineProps, defineEmits } from 'vue';
 
     defineProps({
         form: {
-            type: Object,
-            required: true
+        type: Object,
+        required: true
         },
-        updating:{
-            type: Boolean,
-            default: false
+        permissions: {
+        type: Object,
+        required: true
+        },
+        updating: {
+        type: Boolean,
+        default: false
         }
-    })
+    });
+
+    const togglePermission = (permissionId, form) => {
+        const index = form.permissions.indexOf(permissionId);
+        if (index !== -1) {
+        form.permissions.splice(index, 1);
+        } else {
+        form.permissions.push(permissionId);
+        }
+    };
 
     defineEmits(['submit'])
 </script>
@@ -42,6 +56,20 @@
                         autocomplete="name"
                     />
                     <InputError class="mt-2" :message="form.errors.name" />
+                </div>
+                <div>
+                    <h4>Permisos</h4>
+                    <div v-for="permission in permissions" :key="permission.id" class="col-span-6 sm:col-span-6">
+                        <div class="flex my-2">
+                            <input
+                            :id="`permission-${permission.id}`"
+                            type="checkbox"
+                            :checked="form.permissions.includes(permission.id)"
+                            @change="togglePermission(permission.id, form)"
+                            />
+                            <InputLabel :for="`permission-${permission.id}`" :value="permission.name" class="mx-2" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </template>

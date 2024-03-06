@@ -5,23 +5,19 @@ namespace App\Imports;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
-use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Spatie\Permission\Models\Role;
 
 class UsersImport implements ToModel
 {
     public function model(array $row)
     {
         $userData = [
-            'name' => $row['nombres'],
-            'lastname' => $row['apellidos'],
-            'phone_number' => $row['telefono'],
-            'document_type' => $row['tipo_documento'],
-            'document_number' => $row['numero_documento'],
-            'email' => $row['correo_electronico'],
-            'password' => Hash::make('pass'),
+            'name' => $row[0],
+            'lastname' => $row[1],
+            'phone_number' => $row[2],
+            'document_type' => $row[3],
+            'document_number' => $row[4],
+            'email' => $row[5],
+            'password' => Hash::make(6),
         ];
 
         try {
@@ -31,7 +27,7 @@ class UsersImport implements ToModel
 
             return $user;
         } catch (\Exception $e) {
-            dd('Error, dato duplicado');
+            dd('Error, dato duplicado', $e);
         }
     }
 }
