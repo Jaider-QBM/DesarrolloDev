@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Imports\UsersImport;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,7 +56,10 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user = User::create($request->validated());
+        $userData = $request->validated();
+        $userData['password'] = Hash::make($userData['password']);
+
+        $user = User::create($userData);
         $user->assignRole('Cliente');
         return redirect()->route('users.index');
     }
