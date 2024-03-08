@@ -20,8 +20,9 @@ class UserSeeder extends Seeder
             'name' => 'Jaider Steven',
             'lastname' => 'Quimbaya Mendez',
             'phone_number' => 3219801254,
-            'document_type' => 'Cedula Ciudadania',
+            'document_type' => 'Cedula Ciudadania', 
             'document_number' => 1016946493,
+            'kind_person' => false,
             'email' => 'jaiderstivenquimbaya8@gmail.com',
             'password' => Hash::make('superadmin123456')
         ]);
@@ -34,6 +35,7 @@ class UserSeeder extends Seeder
             'phone_number' => 3205801254,
             'document_type' => 'Cedula Ciudadania',
             'document_number' => 10168450,
+            'kind_person' => false,
             'email' => 'admin@bolsaTalentum.net',
             'password' => Hash::make('admin12345612')
         ]);
