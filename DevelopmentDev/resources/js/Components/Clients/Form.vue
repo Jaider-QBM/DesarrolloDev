@@ -102,6 +102,16 @@
                 </div>
 
                 <div class="mt-4">
+                    <label for="kind_person" class="block text-sm font-medium text-gray-700">Tipo de Persona</label>
+                    <select id="kind_person" v-model="form.kind_person" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required autofocus>
+                        <option value="" disabled selected>Selecciona</option>
+                        <option value="1">Persona Juridica</option>
+                        <option value="0">Persona Natural</option>
+                    </select>
+                    <InputError class="mt-2" :message="form.errors.kind_person" />
+                </div>
+
+                <div class="mt-4">
                     <InputLabel for="email" value="Correo Electronico" />
                     <TextInput
                         id="email"

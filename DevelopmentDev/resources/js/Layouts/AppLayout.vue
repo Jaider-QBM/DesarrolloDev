@@ -124,6 +124,13 @@ const logout = () => {
                                     <span class="flex-1 ms-3 whitespace-nowrap">Roles</span>
                                 </Link>
                             </li>
+
+                            <li v-if="$page.props.user.permissions.includes('read company')">
+                                <Link :href="route('companies.index')" :active="route().current('company.*')" class="flex items-center p-2 text-slate-100 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-black group">
+                                    <font-awesome-icon icon="users" />
+                                    <span class="flex-1 ms-3 whitespace-nowrap">Compañias</span>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </aside>

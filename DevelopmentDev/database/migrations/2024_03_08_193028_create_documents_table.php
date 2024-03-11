@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
+            $table->bigInteger('company_id')->unsigned();
             $table->string('document_type');
             $table->string('url_document');
+            $table->enum('review_status', ['pending', 'authorized', 'rejected'])->default('pending');
             $table->timestamps();
+
             $table->foreign('company_id')->references('id')->on('company')->onDelete('cascade');
         });
     }

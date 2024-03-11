@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('salaryJob');
             $table->unsignedBigInteger('company_id');
             $table->timestamps();
+
             $table->foreign('company_id')->references('id')->on('company')->onDelete('cascade');
         });
     }

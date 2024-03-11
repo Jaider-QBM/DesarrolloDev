@@ -22,7 +22,12 @@ return new class extends Migration
             $table->string('LocationCompany');
             $table->string('numberCompany')->nullable();
             $table->string('photo_logo')->nullable();
+            $table->enum('status', ['pending', 'authorized', 'rejected'])->default('pending');
+            $table->string('confirmation_code');
+            $table->bigInteger('authorized_by')->unsigned()->nullable();
             $table->timestamps();
+            
+            $table->foreign('authorized_by')->references('id')->on('users')->onDelete('set null');
         });
     }
 
@@ -33,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('companies');
     }
 };

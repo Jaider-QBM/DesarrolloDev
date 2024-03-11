@@ -33,10 +33,10 @@ class RoleSeeder extends Seeder
         $permission_import_user = Permission::create(['name' => 'import user']);
 
 
-        $permission_create_permissions = Permission::create(['name' => 'create permissions']);
-        $permission_read_permissions = Permission::create(['name' => 'read permissions']);
-        $permission_update_permissions = Permission::create(['name' => 'update permissions']);
-        $permission_delete_permissions = Permission::create(['name' => 'delete permissions']);
+        $permission_create_company = Permission::create(['name' => 'create company']);
+        $permission_read_company = Permission::create(['name' => 'read company']);
+        $permission_update_company = Permission::create(['name' => 'update company']);
+        $permission_delete_company = Permission::create(['name' => 'delete company']);
 
         $permissions_superAdmin = [
             $permission_create_role,
@@ -48,6 +48,10 @@ class RoleSeeder extends Seeder
             $permission_update_user,
             $permission_delete_user,
             $permission_import_user,
+            $permission_read_company,
+            $permission_create_company,
+            $permission_update_company,
+            $permission_delete_company
         ];
 
         $permissions_admin = [

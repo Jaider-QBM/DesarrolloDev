@@ -30,6 +30,9 @@
                         <RolForm :form="form" :permissions="permissions" @submit="form.post(route('roles.store'))" />
                     </div>
                 </div>
+
+
+                
             </div>
         </div>
     </AppLayout>

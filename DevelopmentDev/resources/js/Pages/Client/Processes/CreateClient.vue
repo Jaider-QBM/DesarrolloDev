@@ -10,6 +10,7 @@
         phone_number: '',
         document_type:'',
         document_number: '',
+        kind_person: '',
         email: '',
         password: ''
     })
