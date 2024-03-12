@@ -32,11 +32,11 @@ Route::middleware([
     Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
     Route::get('/roles/edit', [RoleController::class, 'edit'])->name('roles.edit');
     Route::post('/roles/create', [RoleController::class, 'store'])->name('roles.store');
-    Route::delete('/roles/{rol}', [RoleController::class, 'destroy'])->name('roles.destroy');
+    Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
     Route::get('/company', [CompanyController::class, 'index'])->name('companies.index');
     Route::get('/company/create', [CompanyController::class, 'create'])->name('companies.create');
     Route::get('/company/edit', [CompanyController::class, 'edit'])->name('companies.edit');
     Route::post('/company/create', [CompanyController::class, 'store'])->name('companies.store');
-    Route::delete('/company/{rol}', [CompanyController::class, 'destroy'])->name('companies.destroy');
+    Route::delete('/company/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 });

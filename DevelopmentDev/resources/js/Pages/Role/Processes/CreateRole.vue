@@ -19,7 +19,7 @@
 </script>
 
 <template>
-    <AppLayout title="Clientes">
+    <AppLayout title="Crear Roles">
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 leading-tight" >Crear Rol</h1>
         </template>
@@ -32,7 +32,7 @@
                 </div>
 
 
-                
+
             </div>
         </div>
     </AppLayout>

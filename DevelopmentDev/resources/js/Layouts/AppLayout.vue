@@ -39,7 +39,7 @@ const logout = () => {
         <Banner />
 
         <div class="min-h-screen bg-gray-100">
-            <div class="" v-if="$page.props.user.roles == 'Super Administrador' || $page.props.user.roles == 'Administrador'" >
+            <div  v-if="$page.props.user.roles == 'Super Administrador' || $page.props.user.roles == 'Administrador'" >
                 <nav class="fixed top-0 z-50 w-full bg-slate-900 border-b border-slate-900 dark:bg-gray-800 dark:border-gray-700">
                     <div class="px-3 py-3 lg:px-5 lg:pl-3">
                         <div class="flex items-center justify-between">

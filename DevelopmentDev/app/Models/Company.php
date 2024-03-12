@@ -37,9 +37,14 @@ class Company extends Model
         return $this->hasMany(Notification::class);
     }
 
-    // Relación con el modelo User para el campo 'authorized_by'
     public function authorizedBy()
     {
         return $this->belongsTo(User::class, 'authorized_by');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_company');
+    }
 }
+

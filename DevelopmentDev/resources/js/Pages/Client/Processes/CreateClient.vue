@@ -17,7 +17,7 @@
 </script>
 
 <template>
-    <AppLayout title="Clientes">
+    <AppLayout title="Crear Clientes">
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 leading-tight" >Crear Clientes</h1>
         </template>

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('review_status', ['pending', 'authorized', 'rejected'])->default('pending');
             $table->timestamps();
 
-            $table->foreign('company_id')->references('id')->on('company')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 
