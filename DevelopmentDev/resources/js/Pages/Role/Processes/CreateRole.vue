@@ -15,7 +15,7 @@
     const form = useForm({
         name: '',
         permissions: []
-    })
+    });
 </script>
 
 <template>

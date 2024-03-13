@@ -4,6 +4,7 @@
     import InputError from '@/Components/InputError.vue';
     import InputLabel from '@/Components/InputLabel.vue';
     import PrimaryButton from '@/Components/PrimaryButton.vue';
+
     import { defineProps, defineEmits } from 'vue';
 
     defineProps({
@@ -82,3 +83,4 @@
     </FormSection>
 
 </template>
+

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -73,7 +74,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        return inertia('Role/Processes/EditRole');
+        $role = Role::with('permissions')->findOrFail($id); // Carga los permisos asociados al rol
+        $permissions = Permission::all();
+        return inertia('Role/Processes/EditRole', ['role' => $role, 'permissions' => $permissions]);
     }
 
     /**
@@ -83,9 +86,20 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:100', Rule::unique('roles')->ignore($role->id)],
+            'permissions' => ['required', 'array'],
+        ]);
+
+        $role->update([
+            'name' => $validatedData['name'],
+        ]);
+
+        $role->syncPermissions($validatedData['permissions']);
+
+        return redirect()->route('roles.index');
     }
 
     /**
