@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('nit')->unique();
+            $table->string('nit')->unique();
             $table->string('nameCompany');
             $table->string('descriptionCompany');
             $table->string('industryCompany')->nullable();
             $table->string('LocationCompany');
-            $table->string('numberCompany')->nullable();
+            $table->string('numberCompany');
             $table->string('photo_logo')->nullable();
             $table->enum('status', ['pending', 'authorized', 'rejected'])->default('pending');
             $table->string('numberIdentification')->nullable();

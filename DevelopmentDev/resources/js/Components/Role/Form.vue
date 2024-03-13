@@ -8,16 +8,16 @@
 
     defineProps({
         form: {
-        type: Object,
-        required: true
+            type: Object,
+            required: true
         },
         permissions: {
-        type: Object,
-        required: true
+            type: Object,
+            required: true
         },
         updating: {
-        type: Boolean,
-        default: false
+            type: Boolean,
+            default: false
         }
     });
 

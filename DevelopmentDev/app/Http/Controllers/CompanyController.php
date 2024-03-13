@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -25,7 +27,8 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return inertia('Company/Processes/CreateCompanies');
+        $usersNatu = User::where('kind_person', false)->get();
+        return inertia('Company/Processes/CreateCompanies', ['usersNatu' => $usersNatu]);
     }
 
     /**
@@ -34,9 +37,17 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
-        //
+        $companyData = $request->validated();
+
+        $company = Company::create($companyData);
+        $user = User::find($request->usersN);
+        $user->companies()->attach($company->id);
+
+        $user->update(['kind_person' => true]);
+
+        return redirect()->route('companies.index');
     }
 
     /**
