@@ -4,21 +4,20 @@
     import InputError from '@/Components/InputError.vue';
     import InputLabel from '@/Components/InputLabel.vue';
     import PrimaryButton from '@/Components/PrimaryButton.vue';
-
     import { defineProps, defineEmits } from 'vue';
 
     defineProps({
         form: {
-        type: Object,
-        required: true
+            type: Object,
+            required: true
         },
         permissions: {
-        type: Object,
-        required: true
+            type: Object,
+            required: true
         },
         updating: {
-        type: Boolean,
-        default: false
+            type: Boolean,
+            default: false
         }
     });
 
@@ -83,4 +82,3 @@
     </FormSection>
 
 </template>
-
