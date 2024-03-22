@@ -44,7 +44,6 @@ class CompanyController extends Controller
         $company = Company::create($companyData);
         $user = User::find($request->usersN);
         $user->companies()->attach($company->id);
-
         $user->update(['kind_person' => true]);
 
         return redirect()->route('companies.index');

@@ -25,11 +25,12 @@ class CompanyRequest extends FormRequest
     {
         return [
             'nit' => ['required', 'string', 'max:255', 'unique:companies'],
-            'nameCompany' => ['required', 'string', 'max:15', 'unique:companies'],
+            'nameCompany' => ['required', 'string', 'max:50', 'unique:companies'],
             'descriptionCompany' => ['required', 'string', 'max:225'],
             'numberCompany' => ['required', 'string', 'max:11'],
             'industryCompany' => ['required', 'string', 'max:50'],
             'LocationCompany' => ['required', 'string', 'max:100'],
+            'photo_logo' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
         ];
     }
 }

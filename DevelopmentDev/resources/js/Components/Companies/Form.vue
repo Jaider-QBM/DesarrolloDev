@@ -21,10 +21,20 @@
             required: true
         }
     })
+
+    const handleChange = (event) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            document.getElementById('imagenSeleccionada').src = e.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+
+    defineEmits(['submit'])
 </script>
 
 <template>
-    <FormSection  @submitted="submitForm">
+    <FormSection  @submitted="$emit('submit')" enctype="multipart/form-data">
         <template #title>
             {{ updating ? 'Actualizar Compañia' : 'Crear Nueva Compañia' }}
         </template>
@@ -63,19 +73,23 @@
                     <InputError class="mt-2" :message="form.errors.nameCompany" />
                 </div>
                 <div class="mt-4">
-                    <InputLabel for="photo_logo" value="Nombre" />
+                    <img id="imagenSeleccionada" style="max-height: 300px;">
+                </div>
+                
+
+                <!-- <div class="mt-4">
+                    <InputLabel for="photo_logo" value="Logo empresa" />
                     <TextInput
                         id="photo_logo"
                         v-model="form.photo_logo"
                         type="file"
-                        rows="4"
                         class="mt-1 block w-full"
-                        required
                         autofocus
                         autocomplete="photo_logo"
+                        @change="handleChange"
                     />
                     <InputError class="mt-2" :message="form.errors.photo_logo" />
-                </div>
+                </div> -->
                 <div class="mt-4">
                     <InputLabel for="descriptionCompany" class="block mb-2 text-sm font-medium text-gray-900">Descripción</InputLabel>
                     <textarea

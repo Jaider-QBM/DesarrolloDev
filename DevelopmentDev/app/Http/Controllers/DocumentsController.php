@@ -14,8 +14,8 @@ class DocumentsController extends Controller
      */
     public function create()
     {
-        
-        return inertia('Company/HomeCompany', ['company' => $company]);
+
+        return inertia('Company/HomeCompany');
     }
 
     /**

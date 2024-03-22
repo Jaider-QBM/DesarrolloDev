@@ -17,7 +17,6 @@
         industryCompany:'',
         LocationCompany:'',
         numberCompany:'',
-        photo_logo:'',
         usersN: ''
     })
 
