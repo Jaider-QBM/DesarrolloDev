@@ -14,16 +14,38 @@
         company: {
             type: Object,
             required: true
+        },
+        flash:{
+            type: Object,
+            required: true
         }
     });
-    const { notify } = useNotification();
-    const showNotification = () => {
-        notify({
-            type: 'success',
-            title: '¡Notificación!',
-            message: 'Esta es una notificación de ejemplo.'
-        });
+    const selectedCompany = ref(null);
+
+    const openModal = (companies) => {
+        selectedCompany.value = companies;
     };
+
+    const closeModal = () => {
+        selectedCompany.value = null;
+    };
+
+
+    if (props.flash) {
+    Notifications.notify({
+        title: 'Éxito',
+        text: props.flash,
+        type: 'success'
+    });
+}
+    // const { notify } = useNotification();
+    // const showNotification = () => {
+    //     notify({
+    //         type: 'success',
+    //         title: '¡Notificación!',
+    //         text: 'Esta es una notificación de ejemplo.'
+    //     });
+    // };
 </script>
 
 <template>
@@ -31,7 +53,7 @@
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 leading-tight">Compañias</h1>
         </template>
-        <button @click="showNotification">Mostrar notificación</button>
+        <!-- <button @click="showNotification">Mostrar notificación</button> -->
         <Notifications/>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -69,7 +91,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="companies in company" :key="company.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <tr v-for="companies in company.data" :key="companies.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ companies.id }}
                                     </th>
@@ -86,7 +108,7 @@
                                             {{ companies.numberIdentification ? companies.numberIdentification : 'No tiene' }}
                                         </td>
                                     <td class="px-6 py-4">
-                                        <button @click="openModal(companies.documents)" class="text-blue-600 hover:underline" title="Ver Detalles">
+                                        <button @click="openModal(companies)" class="text-blue-600 hover:underline" title="Ver Detalles">
                                             Ver mas
                                         </button>
                                     </td>
@@ -102,12 +124,12 @@
                             </tbody>
                         </table>
 
-                        <div v-if="selectedRol" class="fixed inset-0 overflow-y-auto flex items-center justify-center">
+                        <div v-if="selectedCompany" class="fixed inset-0 overflow-y-auto flex items-center justify-center">
                             <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 p-8 w-10 md:w-2/4 lg:w-2/4 xl:w-1/3">
                                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Permisos del Rol
+                                        Detalles de la Compañia
                                     </h3>
                                     <button  @click="closeModal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -119,7 +141,28 @@
 
                                 <div class="p-4 md:p-5 space-y-4">
                                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                        <p class="bg-green-500/10 p-2 rounded-xl text-green-500 hover:transform hover:scale-105 text-center " v-for="permission in selectedRol" :key="permission.id">{{ permission.name }}</p>
+                                        <p class="md:col-span-2">Nit: {{ selectedCompany.nit }}</p>
+                                        <p class="md:col-span-2">Nombres: {{ selectedCompany.nameCompany }}</p>
+                                        <p class="md:col-span-2">Locacion: {{ selectedCompany.LocationCompany }}</p>
+                                        <p class="md:col-span-2">Numero Telefonico: {{ selectedCompany.numberCompany }}</p>
+                                        <p class="md:col-span-2">Industria: {{ selectedCompany.industryCompany }}</p>
+                                        <p class="md:col-span-2">Codigo: {{ selectedCompany.numberIdentification ? selectedCompany.numberIdentification : 'No tiene' }}</p>
+                                        <p class="md:col-span-2">logo: {{ selectedCompany.photo_logo ? selectedCompany.photo_logo : 'No tiene' }}</p>
+                                        <p class="md:col-span-2">estado: {{ selectedCompany.status }}</p>
+                                        <p class="md:col-span-2">descripcion: {{ selectedCompany.descriptionCompany }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 md:p-5 space-y-4">
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Cliente acargo
+                                    </h3>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                        <p class="md:col-span-2">Nombre: {{ selectedCompany.users[0].name }}</p>
+                                        <p class="md:col-span-2">Apellido: {{ selectedCompany.users[0].lastname }}</p>
+                                        <p class="md:col-span-2">Numero Telefonico: {{ selectedCompany.users[0].phone_number}}</p>
+                                        <p class="md:col-span-2">correo Electronico: {{ selectedCompany.users[0].email }}</p>
                                     </div>
                                 </div>
                             </div>
