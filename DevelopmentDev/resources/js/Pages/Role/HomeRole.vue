@@ -26,12 +26,11 @@
         selectedRol.value = null;
     };
 
-    const deleteRoles = (rolId) => {
-        if(confirm('¿Esta Seguro de eliminar este Rol?')){
-            Inertia.delete(`/roles/${rolId}`);
+    const deleteRole = (roleId) => {
+        if (confirm('¿Estás seguro de eliminar este Rol?')) {
+            Inertia.delete(`/roles/${roleId}`)
         }
-    }
-
+    };
 </script>
 
 
@@ -84,7 +83,8 @@
                                         <Link :href="route('roles.edit', rol.id )" class="mr-5 font-medium text-blue-600 dark:text-blue-500 hover:underline" title="Editar Rol">
                                             <font-awesome-icon icon="pencil-alt" />
                                         </Link>
-                                        <Link @click="deleteRoles(rol.id)" class="font-medium text-red-600 dark:text-blue-500 hover:underline" title="Eliminar Rol">
+
+                                        <Link @click="deleteRole(rol.id)" class="font-medium text-red-600 dark:text-blue-500 hover:underline" title="Eliminar Rol">
                                             <font-awesome-icon icon="trash" />
                                         </Link>
                                     </td>

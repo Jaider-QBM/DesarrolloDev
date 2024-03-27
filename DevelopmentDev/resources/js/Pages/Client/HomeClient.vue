@@ -1,35 +1,50 @@
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout.vue';
-    import { Inertia } from '@inertiajs/inertia';
-    import { ref } from 'vue';
-    import { Link } from '@inertiajs/vue3';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-    import { library } from '@fortawesome/fontawesome-svg-core';
-    import { faPencilAlt, faTrash, faUserPlus, faFileUpload  } from '@fortawesome/free-solid-svg-icons';
+  // Importaciones necesarias
+  import AppLayout from '@/Layouts/AppLayout.vue';
+  import { Inertia } from '@inertiajs/inertia';
+  import { ref, computed } from 'vue';
+  import { Link } from '@inertiajs/vue3';
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import { library } from '@fortawesome/fontawesome-svg-core';
+  import { faPencilAlt, faTrash, faUserPlus, faFileUpload } from '@fortawesome/free-solid-svg-icons';
 
-    library.add(faPencilAlt, faTrash, faUserPlus, faFileUpload);
+  library.add(faPencilAlt, faTrash, faUserPlus, faFileUpload);
 
-    defineProps({
-        clients:{
-            type: Object,
-            required:true
-        }
-    })
+  // Define las propiedades del componente usando defineProps
+  const { clients } = defineProps(['clients']);
 
-    const deleteClient = (clientId) => {
-        if(confirm('¿Esta Seguro de eliminar este Cliente?')){
-            Inertia.delete(`/clients/${clientId}`);
-        }
+  const deleteClient = (clientId) => {
+    if (confirm('¿Está seguro de eliminar este Cliente?')) {
+      Inertia.delete(`/clients/${clientId}`);
     }
-    const selectedClient = ref(null);
+  };
 
-    const openModal = (client) => {
-        selectedClient.value = client;
-    };
+  const selectedClient = ref(null);
 
-    const closeModal = () => {
-        selectedClient.value = null;
-    };
+  const openModal = (client) => {
+    selectedClient.value = client;
+  };
+
+  const closeModal = () => {
+    selectedClient.value = null;
+  };
+
+  const filter = ref('');
+
+  const filteredClients = computed(() => {
+    if (!clients.data) {
+      return [];
+    }
+    const searchTerm = filter.value.toLowerCase();
+
+    return clients.data.filter((client) =>
+      client.name.toLowerCase().includes(searchTerm) ||
+      client.phone_number.toString().includes(searchTerm) ||
+      client.document_number.toString().includes(searchTerm)
+    );
+  });
+
+
 
 </script>
 
@@ -47,6 +62,11 @@
                         <Link :href="route('users.create')" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" v-if="$page.props.user.permissions.includes('create user')" title="Crear un nuevo cliente deseado">
                             <font-awesome-icon icon="user-plus" />
                         </Link>
+                          <!-- filtrar -->
+            <div class="flex justify-between mb-4">
+              <input v-model="filter" type="text" placeholder="Buscar Cliente..." class="px-3 py-2 border rounded-md">
+            </div>
+            <!-- fin de filtrar -->
 
                         <Link :href="route('users.importClient')" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" v-if="$page.props.user.permissions.includes('import user')" title="Importar un archivo Excel">
                             <font-awesome-icon icon="file-upload" />
@@ -84,10 +104,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-if="clients.data.length === 0">
-                                    <td colspan="8" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">No hay clientes disponibles</td>
+                                        <!-- filtrar  -->
+                                <tr v-if="filteredClients.length === 0">
+                                <td colspan="8" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">No hay clientes disponibles</td>
                                 </tr>
-                                <tr v-for="client in clients.data" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <tr v-for="client in filteredClients" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <!-- ... (resto de tu fila de datos) -->
+                                </tr>
+
+
+
+                                    <tr v-for="client in filteredClients" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ client.id }}
                                     </th>

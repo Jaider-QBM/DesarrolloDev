@@ -4,6 +4,8 @@
     import InputError from '@/Components/InputError.vue';
     import InputLabel from '@/Components/InputLabel.vue';
     import PrimaryButton from '@/Components/PrimaryButton.vue';
+    // import { defineProps } from 'vue';
+    // import ClientForm from '@/Components/Clients/Form.vue';
 
     defineProps({
         form: {
@@ -18,6 +20,9 @@
     })
 
     defineEmits(['submit'])
+
+
+    // const props = defineProps(['form']);
 </script>
 
 <template>
