@@ -1,35 +1,35 @@
 <script setup>
-import { ref } from 'vue';
-import { Head, Link, router } from '@inertiajs/vue3';
-import ApplicationMark from '@/Components/ApplicationMark.vue';
-import Banner from '@/Components/Banner.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHome, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+    import { ref } from 'vue';
+    import { Head, Link, router } from '@inertiajs/vue3';
+    import ApplicationMark from '@/Components/ApplicationMark.vue';
+    import Banner from '@/Components/Banner.vue';
+    import Dropdown from '@/Components/Dropdown.vue';
+    import DropdownLink from '@/Components/DropdownLink.vue';
+    import NavLink from '@/Components/NavLink.vue';
+    import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import { library } from '@fortawesome/fontawesome-svg-core';
+    import { faHome, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faHome, faUser, faUsers);
+    library.add(faHome, faUser, faUsers);
 
-defineProps({
-    title: String,
-});
-
-const showingNavigationDropdown = ref(false);
-
-const switchToTeam = (team) => {
-    router.put(route('current-team.update'), {
-        team_id: team.id,
-    }, {
-        preserveState: false,
+    defineProps({
+        title: String,
     });
-};
 
-const logout = () => {
-    router.post(route('logout'));
-};
+    const showingNavigationDropdown = ref(false);
+
+    const switchToTeam = (team) => {
+        router.put(route('current-team.update'), {
+            team_id: team.id,
+        }, {
+            preserveState: false,
+        });
+    };
+
+    const logout = () => {
+        router.post(route('logout'));
+    };
 </script>
 
 <template>
@@ -373,7 +373,6 @@ const logout = () => {
                     </div>
                 </div>
             </nav>
-
             <div class=" sm:ml-64" v-if="$page.props.user.roles == 'Super Administrador' || $page.props.user.roles == 'Administrador'" >
                 <!-- Page Heading -->
                 <header v-if="$slots.header" class="bg-white shadow mt-16">
@@ -402,6 +401,7 @@ const logout = () => {
             </div>
 
         </div>
+
     </div>
 </template>
 

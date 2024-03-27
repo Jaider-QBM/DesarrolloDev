@@ -27,6 +27,14 @@
         "@fortawesome/vue-fontawesome": "^3.0.6",
         "@headlessui/vue": "^1.7.17",
         "@heroicons/vue": "^2.1.1",
-        "@inertiajs/inertia": "^0.11.1"
+        "@inertiajs/inertia": "^0.11.1",
+        "@inertiajs/inertia-vue3": "^0.6.0",
+        "@kyvg/vue3-notification": "^3.2.1",
+        "chalk": "^5.3.0",
+        "unplugin-vue-components": "^0.26.0",
+        "vue3-notification": "^0.0.3",
+        "vue3-toast": "^0.0.1",
+        "vuesax": "^3.12.2",
+        "vuesax3": "^4.2.1"
     }
 }

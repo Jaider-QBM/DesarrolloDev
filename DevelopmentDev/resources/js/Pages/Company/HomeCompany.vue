@@ -4,15 +4,26 @@
     import { Link } from '@inertiajs/vue3';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { library } from '@fortawesome/fontawesome-svg-core';
-    import { faPencilAlt, faTrash, faUserPlus  } from '@fortawesome/free-solid-svg-icons';
+    import { faPencilAlt, faTrash, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+    import { ref } from 'vue';
+    import { Notifications, useNotification } from '@kyvg/vue3-notification';
+
     library.add(faPencilAlt, faTrash, faUserPlus);
 
-    defineProps({
-        company:{
+    const props = defineProps({
+        company: {
             type: Object,
             required: true
         }
-    })
+    });
+    const { notify } = useNotification();
+    const showNotification = () => {
+        notify({
+            type: 'success',
+            title: '¡Notificación!',
+            message: 'Esta es una notificación de ejemplo.'
+        });
+    };
 </script>
 
 <template>
@@ -20,6 +31,8 @@
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 leading-tight">Compañias</h1>
         </template>
+        <button @click="showNotification">Mostrar notificación</button>
+        <Notifications/>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="p-6 bg-white border-b border-gray-200">

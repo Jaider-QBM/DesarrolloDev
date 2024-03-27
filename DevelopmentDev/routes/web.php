@@ -24,10 +24,10 @@ Route::middleware([
     Route::get('/clients', [UserController::class, 'index'])->name('users.index');
     Route::get('/clients/import', [UserController::class, 'importClient'])->name('users.importClient');
     Route::get('/clients/create', [UserController::class, 'create'])->name('users.create');
-    Route::get('/clients/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::get('/clients/edit/{client}', [UserController::class, 'edit'])->name('users.edit');
     Route::post('/clients/create', [UserController::class, 'store'])->name('users.store');
     Route::post('/clients/import', [UserController::class, 'import'])->name('users.import');
-    Route::put('/clients/edit   ', [UserController::class, 'update'])->name('clients.update');
+    Route::put('/clients/edit/{client}  ', [UserController::class, 'update'])->name('users.update');
     Route::delete('/clients/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
     //Roles
