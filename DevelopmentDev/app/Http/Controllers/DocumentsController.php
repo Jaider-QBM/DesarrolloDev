@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Company;
+use App\Models\User;
 
 class DocumentsController extends Controller
 {
@@ -12,10 +14,20 @@ class DocumentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        // Recuperar la compañía y el usuario basándote en los parámetros de la solicitud
+        $companyId = $request->query('companyId');
+        $userId = $request->query('userId');
 
-        return inertia('Company/HomeCompany');
+        // Aquí puedes buscar la información de la compañía y del usuario en la base de datos
+        // Por ejemplo:
+        $companies = Company::find($companyId);
+        $users = User::find($userId);
+
+
+        // Retornar la vista con los datos preparados
+        return inertia('Documents/CreateDocuments', ['companies' => $companies, 'users' => $users ]);
     }
 
     /**

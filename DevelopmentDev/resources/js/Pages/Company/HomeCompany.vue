@@ -4,21 +4,20 @@
     import { Link } from '@inertiajs/vue3';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { library } from '@fortawesome/fontawesome-svg-core';
-    import { faPencilAlt, faTrash, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+    import { faPencilAlt, faTrash, faUserPlus, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
     import { ref } from 'vue';
-    import { Notifications, useNotification } from '@kyvg/vue3-notification';
 
-    library.add(faPencilAlt, faTrash, faUserPlus);
+    import Toast from '@/Components/Toast.vue';
+
+
+    library.add(faPencilAlt, faTrash, faUserPlus, faFileCirclePlus);
 
     const props = defineProps({
         company: {
             type: Object,
             required: true
         },
-        flash:{
-            type: Object,
-            required: true
-        }
+
     });
     const selectedCompany = ref(null);
 
@@ -29,23 +28,6 @@
     const closeModal = () => {
         selectedCompany.value = null;
     };
-
-
-    if (props.flash) {
-    Notifications.notify({
-        title: 'Éxito',
-        text: props.flash,
-        type: 'success'
-    });
-}
-    // const { notify } = useNotification();
-    // const showNotification = () => {
-    //     notify({
-    //         type: 'success',
-    //         title: '¡Notificación!',
-    //         text: 'Esta es una notificación de ejemplo.'
-    //     });
-    // };
 </script>
 
 <template>
@@ -53,8 +35,7 @@
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 leading-tight">Compañias</h1>
         </template>
-        <!-- <button @click="showNotification">Mostrar notificación</button> -->
-        <Notifications/>
+        <Toast/>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="p-6 bg-white border-b border-gray-200">
@@ -163,6 +144,18 @@
                                         <p class="md:col-span-2">Apellido: {{ selectedCompany.users[0].lastname }}</p>
                                         <p class="md:col-span-2">Numero Telefonico: {{ selectedCompany.users[0].phone_number}}</p>
                                         <p class="md:col-span-2">correo Electronico: {{ selectedCompany.users[0].email }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 md:p-5 space-y-4">
+                                    <div class="flex justify-between items-center flex-wrap">
+                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                            Documentos
+                                        </h3>
+
+                                        <Link :href="`${route('documents.create', selectedCompany.id)}?companyId=${selectedCompany.id}&userId=${selectedCompany.users[0].id}`" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" v-if="$page.props.user.permissions.includes('create roles')" title="Crear un rol deseado">
+                                            <font-awesome-icon icon="file-circle-plus" class="text-lg" />
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

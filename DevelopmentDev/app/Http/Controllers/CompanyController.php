@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use App\Models\User;
+use App\Helpers\BT;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -48,8 +49,8 @@ class CompanyController extends Controller
         $user->companies()->attach($company->id);
         $user->update(['kind_person' => true]);
 
-        
-        return redirect()->route('companies.index')->with('flash', 'Se creó exitosamente la compañía. Sigue el proceso, sube los documentos de la compañía.');
+
+        return redirect()->route('companies.index')->with('success','Se creó exitosamente la compañía. Sigue el proceso, sube los documentos de la compañía.');
     }
 
     /**

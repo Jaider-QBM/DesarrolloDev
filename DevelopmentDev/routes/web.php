@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -45,8 +46,8 @@ Route::middleware([
     Route::delete('/company/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 
     //Documentos
-    Route::get('/company/Documents', [CompanyController::class, 'create'])->name('documents.create');
-    Route::post('/company/Documents', [CompanyController::class, 'store'])->name('documents.store');
+    Route::get('/company/{companies}/Documents', [DocumentsController::class, 'create'])->name('documents.create');
+    Route::post('/company/Documents', [DocumentsController::class, 'store'])->name('documents.store');
 
 
 });
