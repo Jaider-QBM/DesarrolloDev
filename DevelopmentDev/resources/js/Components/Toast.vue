@@ -10,13 +10,13 @@
         'position': toast.POSITION.TOP_RIGHT,
         'autoClose': 5000,
         'closeOnclick': true,
-        'type': 'default'
+        'type': 'default',
     }
 
     const flash = usePage().props.flash;
 
     const notify =( type, message) =>{
-        options['type'] ='type';
+        options['type'] = type;
 
         toast(message, options);
     }

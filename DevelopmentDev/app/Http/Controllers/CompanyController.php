@@ -50,7 +50,7 @@ class CompanyController extends Controller
         $user->update(['kind_person' => true]);
 
 
-        return redirect()->route('companies.index')->with('success','Se creó exitosamente la compañía. Sigue el proceso, sube los documentos de la compañía.');
+        return redirect()->route('companies.index')->with('success', 'Se creó exitosamente la compañía. Sigue el proceso, sube los documentos de la compañía.');
     }
 
     /**
