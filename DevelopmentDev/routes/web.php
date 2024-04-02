@@ -47,7 +47,7 @@ Route::middleware([
 
     //Documentos
     Route::get('/company/{companies}/Documents', [DocumentsController::class, 'create'])->name('documents.create');
-    Route::post('/company/Documents', [DocumentsController::class, 'store'])->name('documents.store');
+    Route::post('/company/{companies}/Documents', [DocumentsController::class, 'store'])->name('documents.store');
 
 
 });
