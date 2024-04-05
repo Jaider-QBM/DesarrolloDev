@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('company_id')->unsigned();
             $table->string('document_type');
             $table->string('url_document');
-            $table->enum('review_status', ['pending', 'authorized', 'rejected'])->default('pending');
+            $table->enum('review_status', ['revisado', 'pendiente', 'en_revision', 'aprovado'])->default('pendiente');
             $table->timestamps();
 
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');

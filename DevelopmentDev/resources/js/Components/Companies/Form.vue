@@ -75,7 +75,7 @@
                 <div class="mt-4">
                     <img id="imagenSeleccionada" style="max-height: 300px;">
                 </div>
-                
+
 
                 <!-- <div class="mt-4">
                     <InputLabel for="photo_logo" value="Logo empresa" />

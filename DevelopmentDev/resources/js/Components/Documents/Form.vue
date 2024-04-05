@@ -1,35 +1,46 @@
 <script setup>
-    import FormSection from '@/Components/FormSection.vue';
-    import InputError from '@/Components/InputError.vue';
-    import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { defineProps, defineEmits } from 'vue';
+import FormSection from '@/Components/FormSection.vue';
+import InputError from '@/Components/InputError.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
-    const props = defineProps({
-        form: {
-            type: Object,
-            required: true
-        },
-        companies: {
-            type: Object,
-            required: true
-        },
-        users: {
-            type: Object,
-            required: true
-        }
-    });
+const props = defineProps({
+    form: {
+        type: Object,
+        required: true
+    },
+    companies: {
+        type: Object,
+        required: true
+    },
+    users: {
+        type: Object,
+        required: true
+    }
+});
 
-    defineEmits(['submit'])
+const emit = defineEmits(['submit']);
+
+const handleFileChange = (event) => {
+    // Accede a form a través de props y asigna el archivo seleccionado
+    props.form.url_document = event.target.files[0];
+};
+
+const handleSubmit = () => {
+    // Aquí, deberías manejar la lógica de presentación del formulario
+    // Por ejemplo, podrías querer validar el formulario y luego emitir un evento al componente padre
+    emit('submit');
+};
 </script>
 
 <template>
-        <FormSection  @submitted="$emit('submit')" enctype="multipart/form-data">
+    <FormSection @submit="handleSubmit" enctype="multipart/form-data">
         <template #title>
             Documentos de {{ props.companies.nameCompany }}
         </template>
         <template #description>
             Cliente Juridico {{ props.users.name }} {{ props.users.lastname }}
         </template>
-
 
         <template #form>
             <div class="col-span-6 sm:col-span6">
@@ -40,23 +51,12 @@
                         <option value="D.C">Constitución</option>
                         <option value="D.P">Propiedad</option>
                         <option value="D.F">Fiscales</option>
-
                     </select>
-                    <InputError class="mt-2" :message="form.errors.kind_person" />
+                    <InputError class="mt-2" :message="form.errors && form.errors.document_type" />
                 </div>
                 <div class="mt-4">
-                    <div class="flex items-center justify-center w-full">
-                        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-50 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                </svg>
-                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Haga clic para</span> cargar o arrastre y suelte</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">PDF</p>
-                            </div>
-                            <input id="dropzone-file" type="file" class="hidden" />
-                        </label>
-                    </div>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files">Sube archivos PDF</label>
+                    <input type="file" name="url_document" @change="handleFileChange">
                 </div>
                 <div class="mt-4">
                     <label for="review_status" class="block text-sm font-medium text-gray-700">Estado del Documento</label>
@@ -67,11 +67,9 @@
                         <option value="en_revision">En Revision</option>
                         <option value="rechazado">Rechazado</option>
                         <option value="aprovado">Aprovado</option>
-
                     </select>
-                    <InputError class="mt-2" :message="form.errors.kind_person" />
+                    <InputError class="mt-2" :message="form.errors && form.errors.review_status" />
                 </div>
-
             </div>
         </template>
 
@@ -81,7 +79,4 @@
             </PrimaryButton>
         </template>
     </FormSection>
-
 </template>
-
-
