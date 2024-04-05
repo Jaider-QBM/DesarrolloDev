@@ -50,11 +50,8 @@ defineEmits(['submit']);
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-<<<<<<< HEAD
                         <FormDocuments :form="form" :companies="companies" :users="users" @submit="handleSubmit" ref="form" enctype="multipart/form-data" />
-=======
-                        <FormDocuments :form="form" :companies="companies" :users="users" @submit="form.post(route('documents.store', companies.id))" />
->>>>>>> deb64616586f551fc4d38a2a373006c8eaf2752f
+                        <!-- <FormDocuments :form="form" :companies="companies" :users="users" @submit="form.post(route('documents.store', companies.id))" /> -->
                     </div>
                 </div>
             </div>
