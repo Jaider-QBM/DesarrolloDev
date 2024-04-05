@@ -153,7 +153,7 @@
                                             Documentos
                                         </h3>
 
-                                        <Link :href="`${route('documents.create', selectedCompany.id)}?companyId=${selectedCompany.id}&userId=${selectedCompany.users[0].id}`" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" v-if="$page.props.user.permissions.includes('create roles')" title="Crear un rol deseado">
+                                        <Link :href="route('documents.create', { companies: selectedCompany.id, users: selectedCompany.users[0].id })" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" v-if="$page.props.user.permissions.includes('create roles')" title="Crear un rol deseado">
                                             <font-awesome-icon icon="file-circle-plus" class="text-lg" />
                                         </Link>
                                     </div>

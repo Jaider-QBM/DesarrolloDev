@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DocumentRequest;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Documents;
@@ -15,20 +16,12 @@ class DocumentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create($companyId, $userId)
     {
-        // Recuperar la compañía y el usuario basándote en los parámetros de la solicitud
-        $companyId = $request->query('companyId');
-        $userId = $request->query('userId');
-
-        // Aquí puedes buscar la información de la compañía y del usuario en la base de datos
-        // Por ejemplo:
         $companies = Company::find($companyId);
         $users = User::find($userId);
 
-
-        // Retornar la vista con los datos preparados
-        return inertia('Documents/CreateDocuments', ['companies' => $companies, 'users' => $users ]);
+        return inertia('Documents/CreateDocuments', ['companies' => $companies, 'users' => $users]);
     }
 
     /**
@@ -40,25 +33,22 @@ class DocumentsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'company_id' => $request->query('companyId'),
             'document_type' => 'required',
-            'url_document' => 'required|mimes:pdf|max:2048', // Asegúrate de que el archivo sea un PDF y no exceda el tamaño máximo
+            'url_document' => 'required|file|mimes:pdf|max:2048',
+            'review_status' => 'required'
         ]);
 
-        if ($request->hasFile('url_document')) {
-            $file = $request->file('url_document');
-            $path = $file->store('documents', 'public'); // Guarda el archivo en el disco 'public' en la carpeta 'documents'
+        $path = $request->file('url_document')->store('documents');
 
-            // Aquí puedes guardar la información del archivo en la base de datos
-            // Por ejemplo, creando un nuevo registro en la tabla 'documents'
-            $document = new Documents;
-            $document->document_type = $request->document_type;
-            $document->url_document = $path; // Guarda la ruta del archivo
-            $document->review_status = $request->review_status;
-            $document->save();
-        }
+        $document = new Documents();
+        $document->company_id = $request->company_id;
+        $document->document_type = $request->document_type;
+        $document->url_document = $path;
+        $document->review_status = $request->review_status;
+        $document->save();
 
-        return redirect()->route('documents.index'); // Redirige al usuario a la página de índice de documentos
+        // Redirect or return a response
+        return redirect()->route('documents.index');
     }
     /**
      * Show the form for editing the specified resource.

@@ -26,10 +26,10 @@
 <template>
     <FormSection  @submitted="$emit('submit')" enctype="multipart/form-data">
         <template #title>
-            Documentos de {{ props.companies.nameCompany }}
+            Subir documentos de {{ props.companies.nameCompany }}
         </template>
         <template #description>
-            Cliente Juridico {{ props.users.name }} {{ props.users.lastname }}
+            El cliente encargado {{ props.users.name }} {{ props.users.lastname }}
         </template>
 
 
