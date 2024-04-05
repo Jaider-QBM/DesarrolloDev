@@ -51,8 +51,6 @@ class DocumentsController extends Controller
 
         return redirect()->route('companies.index')->with('success', 'Se Subio Exitosamente los documentos de la compañia');
     }
-
-
     /**
      * Show the form for editing the specified resource.
      *

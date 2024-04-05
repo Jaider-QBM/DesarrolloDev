@@ -1,8 +1,16 @@
 <script setup>
+<<<<<<< HEAD
 import { defineProps, defineEmits } from 'vue';
 import FormSection from '@/Components/FormSection.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+=======
+    import FormSection from '@/Components/FormSection.vue';
+    import InputError from '@/Components/InputError.vue';
+    import InputLabel from '@/Components/InputLabel.vue';
+    import TextInput from '@/Components/TextInput.vue';
+    import PrimaryButton from '@/Components/PrimaryButton.vue';
+>>>>>>> deb64616586f551fc4d38a2a373006c8eaf2752f
 
 const props = defineProps({
     form: {
@@ -34,7 +42,11 @@ const handleSubmit = () => {
 </script>
 
 <template>
+<<<<<<< HEAD
     <FormSection @submit="handleSubmit" enctype="multipart/form-data">
+=======
+    <FormSection  @submitted="$emit('submit')" enctype="multipart/form-data">
+>>>>>>> deb64616586f551fc4d38a2a373006c8eaf2752f
         <template #title>
             Documentos de {{ props.companies.nameCompany }}
         </template>
@@ -42,24 +54,45 @@ const handleSubmit = () => {
             Cliente Juridico {{ props.users.name }} {{ props.users.lastname }}
         </template>
 
+<<<<<<< HEAD
         <template #form>
+=======
+
+        <template #form  enctype="multipart/form-data">
+>>>>>>> deb64616586f551fc4d38a2a373006c8eaf2752f
             <div class="col-span-6 sm:col-span6">
                 <div class="mt-4">
-                    <label for="document_type" class="block text-sm font-medium text-gray-700">Tipo de Documento</label>
+                    <InputLabel for="document_type" value="Tipo de Documento"/>
                     <select id="document_type" v-model="form.document_type" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required autofocus>
                         <option value="" disabled selected>Selecciona</option>
                         <option value="D.C">Constitución</option>
                         <option value="D.P">Propiedad</option>
                         <option value="D.F">Fiscales</option>
                     </select>
+<<<<<<< HEAD
                     <InputError class="mt-2" :message="form.errors && form.errors.document_type" />
                 </div>
                 <div class="mt-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files">Sube archivos PDF</label>
                     <input type="file" name="url_document" @change="handleFileChange">
+=======
+                    <InputError class="mt-2" :message="form.errors.document_type" />
                 </div>
                 <div class="mt-4">
-                    <label for="review_status" class="block text-sm font-medium text-gray-700">Estado del Documento</label>
+                    <InputLabel for="url_document" value="Documento PDF"/>
+                    <TextInput
+                        id="url_document"
+                        type="file"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        required
+                        autofocus
+                        v-model="form.url_document"
+                    />
+                    <InputError class="mt-2" :message="form.errors.url_document" />
+>>>>>>> deb64616586f551fc4d38a2a373006c8eaf2752f
+                </div>
+                <div class="mt-4">
+                    <InputLabel for="review_status" value="Estado del Documento"/>
                     <select id="review_status" v-model="form.review_status" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required autofocus>
                         <option value="" disabled selected>Selecciona</option>
                         <option value="revisado">Revisando</option>
@@ -68,7 +101,11 @@ const handleSubmit = () => {
                         <option value="rechazado">Rechazado</option>
                         <option value="aprovado">Aprovado</option>
                     </select>
+<<<<<<< HEAD
                     <InputError class="mt-2" :message="form.errors && form.errors.review_status" />
+=======
+                    <InputError class="mt-2" :message="form.errors.review_status" />
+>>>>>>> deb64616586f551fc4d38a2a373006c8eaf2752f
                 </div>
             </div>
         </template>
