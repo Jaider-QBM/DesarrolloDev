@@ -18,7 +18,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    use HasRoles; 
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +31,7 @@ class User extends Authenticatable
         'phone_number',
         'document_type',
         'document_number',
+        'kind_person',
         'email',
         'password',
     ];
@@ -64,4 +65,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class, 'user_company');
+    }
 }

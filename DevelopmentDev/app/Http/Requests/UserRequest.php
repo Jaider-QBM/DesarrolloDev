@@ -30,6 +30,7 @@ class UserRequest extends FormRequest
             'document_type' => ['required', 'string', 'max:225'],
             'document_number' => ['required', 'string', 'max:15', 'min:5', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'kind_person' => ['required', 'boolean'],
             'password' => ['required', 'string']
         ];
     }

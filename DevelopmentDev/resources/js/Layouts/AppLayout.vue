@@ -1,35 +1,35 @@
 <script setup>
-import { ref } from 'vue';
-import { Head, Link, router } from '@inertiajs/vue3';
-import ApplicationMark from '@/Components/ApplicationMark.vue';
-import Banner from '@/Components/Banner.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHome, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+    import { ref } from 'vue';
+    import { Head, Link, router } from '@inertiajs/vue3';
+    import ApplicationMark from '@/Components/ApplicationMark.vue';
+    import Banner from '@/Components/Banner.vue';
+    import Dropdown from '@/Components/Dropdown.vue';
+    import DropdownLink from '@/Components/DropdownLink.vue';
+    import NavLink from '@/Components/NavLink.vue';
+    import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import { library } from '@fortawesome/fontawesome-svg-core';
+    import { faHome, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faHome, faUser, faUsers);
+    library.add(faHome, faUser, faUsers);
 
-defineProps({
-    title: String,
-});
-
-const showingNavigationDropdown = ref(false);
-
-const switchToTeam = (team) => {
-    router.put(route('current-team.update'), {
-        team_id: team.id,
-    }, {
-        preserveState: false,
+    defineProps({
+        title: String,
     });
-};
 
-const logout = () => {
-    router.post(route('logout'));
-};
+    const showingNavigationDropdown = ref(false);
+
+    const switchToTeam = (team) => {
+        router.put(route('current-team.update'), {
+            team_id: team.id,
+        }, {
+            preserveState: false,
+        });
+    };
+
+    const logout = () => {
+        router.post(route('logout'));
+    };
 </script>
 
 <template>
@@ -39,7 +39,7 @@ const logout = () => {
         <Banner />
 
         <div class="min-h-screen bg-gray-100">
-            <div class="" v-if="$page.props.user.roles == 'Super Administrador' || $page.props.user.roles == 'Administrador'" >
+            <div  v-if="$page.props.user.roles == 'Super Administrador' || $page.props.user.roles == 'Administrador'" >
                 <nav class="fixed top-0 z-50 w-full bg-slate-900 border-b border-slate-900 dark:bg-gray-800 dark:border-gray-700">
                     <div class="px-3 py-3 lg:px-5 lg:pl-3">
                         <div class="flex items-center justify-between">
@@ -124,6 +124,13 @@ const logout = () => {
                                     <span class="flex-1 ms-3 whitespace-nowrap">Roles</span>
                                 </Link>
                             </li>
+
+                            <li v-if="$page.props.user.permissions.includes('read company')">
+                                <Link :href="route('companies.index')" :active="route().current('company.*')" class="flex items-center p-2 text-slate-100 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-black group">
+                                    <font-awesome-icon icon="users" />
+                                    <span class="flex-1 ms-3 whitespace-nowrap">Compañias</span>
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </aside>
@@ -151,7 +158,7 @@ const logout = () => {
                                 </NavLink>
                             </div>
 
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" v-if="$page.props.user && $page.props.user.permissions && $page.props.user.permissions.includes6('read roles')">
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" v-if="$page.props.user && $page.props.user.permissions && $page.props.user.permissions.includes('read roles')">
                                 <NavLink  :href="route('roles.edit', roleId)" :active="route().current('role.*')">
                                     Roles
                                 </NavLink>
@@ -366,7 +373,6 @@ const logout = () => {
                     </div>
                 </div>
             </nav>
-
             <div class=" sm:ml-64" v-if="$page.props.user.roles == 'Super Administrador' || $page.props.user.roles == 'Administrador'" >
                 <!-- Page Heading -->
                 <header v-if="$slots.header" class="bg-white shadow mt-16">
@@ -395,6 +401,7 @@ const logout = () => {
             </div>
 
         </div>
+
     </div>
 </template>
 

@@ -81,9 +81,10 @@ class UserController extends Controller
      * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        return inertia('Client/Processes/EditClient', ['user' => $user]);
+        $client = User::find($id);
+        return inertia('Client/Processes/EditClient', ['client' => $client]);
     }
 
     /**
@@ -93,9 +94,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, User $client)
     {
-        $user->update($request->validated());
+        $client->update($request->validated());
         return redirect()->route('users.index');
     }
 

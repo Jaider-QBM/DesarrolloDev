@@ -23,6 +23,7 @@
         document_type: '',
         document_number: '',
         password: '',
+        kind_person: false,
         password_confirmation: '',
         terms: false,
     });
