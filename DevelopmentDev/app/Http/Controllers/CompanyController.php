@@ -20,7 +20,8 @@ class CompanyController extends Controller
         $company = Company::with(['users' => function ($query) {
             $query->where('kind_person', true);
         }])->paginate(10);
-        return inertia('Company/HomeCompany', ['company' => $company]);
+        $companies = Company::with('documents');
+        return inertia('Company/HomeCompany', ['company' => $company, 'companies' => $companies ]);
     }
 
     /**

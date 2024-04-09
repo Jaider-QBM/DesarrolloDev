@@ -18,6 +18,11 @@
             required: true
         },
 
+        companies:{
+            type: Object,
+            required: true
+        }
+
     });
     const selectedCompany = ref(null);
 
@@ -35,6 +40,8 @@
         <template #header>
             <h1 class="font-semibold text-xl text-gray-800 leading-tight">Compañias</h1>
         </template>
+
+        {{ companies }}
         <Toast/>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -156,6 +163,11 @@
                                         <Link :href="route('documents.create', { companies: selectedCompany.id, users: selectedCompany.users[0].id })" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" v-if="$page.props.user.permissions.includes('create roles')" title="Crear un rol deseado">
                                             <font-awesome-icon icon="file-circle-plus" class="text-lg" />
                                         </Link>
+                                        <ul>
+                                            <li v-for="document in company.documents" :key="document.id">
+                                                <a :href="document.url_document" target="_blank">{{ document.document_type }}</a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
