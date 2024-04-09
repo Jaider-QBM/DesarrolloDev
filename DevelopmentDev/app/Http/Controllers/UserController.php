@@ -96,7 +96,12 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $client)
     {
-        $client->update($request->validated());
+        $validatedData = $request->validated();
+        if($validatedData['password']){
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        }
+
+        $client->update($validatedData);
         return redirect()->route('users.index');
     }
 

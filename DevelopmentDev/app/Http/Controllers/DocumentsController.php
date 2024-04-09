@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Documents;
 use App\Models\User;
 
+
 class DocumentsController extends Controller
 {
 
@@ -21,8 +22,9 @@ class DocumentsController extends Controller
         $userId = $request->query('userId');
         $companies = Company::find($companyId);
         $users = User::find($userId);
+        $document = Documents::where('company_id', $companyId)->get();
 
-        return inertia('Documents/CreateDocuments', ['companies' => $companies, 'users' => $users ]);
+        return inertia('Documents/CreateDocuments', ['companies' => $companies, 'users' => $users,  'documents' => $document ]);
     }
 
     /**
