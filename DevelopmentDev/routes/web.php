@@ -46,8 +46,8 @@ Route::middleware([
     Route::delete('/company/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 
     //Documentos
-    Route::get('/company/{companies}/user/{users}/Documents', [DocumentsController::class, 'create'])->name('documents.create');
-    Route::post('/company/{companies}/user/{users}/Documents', [DocumentsController::class, 'store'])->name('documents.store');
+    Route::get('/company/{companies}/Documents', [DocumentsController::class, 'create'])->name('documents.create');
+    Route::post('/company/Documents', [DocumentsController::class, 'store'])->name('documents.store');
 
 
 });

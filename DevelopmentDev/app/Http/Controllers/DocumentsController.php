@@ -16,12 +16,20 @@ class DocumentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($companyId, $userId)
+    public function create(Request $request)
     {
+        // Recuperar la compañía y el usuario basándote en los parámetros de la solicitud
+        $companyId = $request->query('companyId');
+        $userId = $request->query('userId');
+
+        // Aquí puedes buscar la información de la compañía y del usuario en la base de datos
+        // Por ejemplo:
         $companies = Company::find($companyId);
         $users = User::find($userId);
 
-        return inertia('Documents/CreateDocuments', ['companies' => $companies, 'users' => $users]);
+
+        // Retornar la vista con los datos preparados
+        return inertia('Documents/CreateDocuments', ['companies' => $companies, 'users' => $users ]);
     }
 
     /**
@@ -29,13 +37,13 @@ class DocumentsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+    */
+
     public function store(Request $request)
     {
         $request->validate([
             'document_type' => 'required',
-            'url_document' => 'required|file|mimes:pdf|max:2048',
-            'review_status' => 'required'
+            'url_document' => 'required|mimes:pdf|max:2048', // Asegúrate de que el archivo sea un PDF y no exceda el tamaño máximo
         ]);
 
         $path = $request->file('url_document')->store('documents');
@@ -47,8 +55,7 @@ class DocumentsController extends Controller
         $document->review_status = $request->review_status;
         $document->save();
 
-        // Redirect or return a response
-        return redirect()->route('documents.index');
+        return redirect()->route('documents.index'); // Redirige al usuario a la página de índice de documentos
     }
     /**
      * Show the form for editing the specified resource.

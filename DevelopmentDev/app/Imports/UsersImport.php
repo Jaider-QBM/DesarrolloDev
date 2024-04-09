@@ -15,9 +15,10 @@ class UsersImport implements ToModel
             'lastname' => $row[1],
             'phone_number' => $row[2],
             'document_type' => $row[3],
-            'document_number' => $row[4],
-            'email' => $row[5],
-            'password' => Hash::make(6),
+            'kind_person'=>$row[4],
+            'document_number' => $row[5],
+            'email' => $row[6],
+            'password' => Hash::make(7),
         ];
 
         try {
